@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import * as turf from '@turf/turf';
+import { FiMaximize } from 'react-icons/fi';
 
 // Predefined list of distinct colors
 const distinctColors = [
@@ -114,11 +115,40 @@ export default function Map({ data }) {
     };
 
     return (
-        <div>
-            <button onClick={toggleFullscreen} style={{ position: 'absolute', zIndex: 1000 }}>
-                Toggle Fullscreen
+        <div style={{ position: 'relative', height: '70vh', width: '100%', maxWidth: '100vw', margin: '0 auto' }}>
+            <div
+                ref={mapContainerRef}
+                id="map"
+                style={{
+                    height: '150%',
+                    width: '100%',
+                    position: 'relative',
+                    minHeight: '300px',
+                    maxHeight: '90vh'
+                }}
+            ></div>
+
+            <button
+                onClick={toggleFullscreen}
+                title="Toggle Fullscreen"
+                style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '10px',
+                    zIndex: 1000,
+                    backgroundColor: '#ffffffdd',
+                    border: 'none',
+                    borderRadius: '50%',
+                    padding: '10px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease-in-out'
+                }}
+                onMouseOver={e => e.currentTarget.style.transform = 'scale(1.1)'}
+                onMouseOut={e => e.currentTarget.style.transform = 'scale(1.0)'}
+            >
+                <FiMaximize size={20} color="#333" />
             </button>
-            <div ref={mapContainerRef} id="map" style={{ height: '500px', width: '100%' }}></div>
         </div>
     );
 }
